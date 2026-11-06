@@ -27,7 +27,6 @@ class StationaryState{
         vector<double> CalculatePsiSpatial(int n, double L, int N) {
             vector<double> psi;
             psi.reserve(N);
-
             double dx = L / static_cast<double>(N);
 
             for(int i = 0; i < N; ++i) {
@@ -106,7 +105,6 @@ class QuantumSystem{
             vector<complex<double>> psiTotal(intervals);
             int step = 0;
             
-
             for (double t = 0.0; t <= t_max; t += dt) {
                 fill(psiTotal.begin(), psiTotal.end(), complex<double>(0.0, 0.0));
                 
@@ -137,7 +135,6 @@ class QuantumSystem{
 
             }
             
-
             file.close();
             cout << "Simulation finished successfully\n";
         }
