@@ -10,7 +10,7 @@ plt.rcParams['font.family'] = 'sans-serif'
 plt.rcParams['axes.edgecolor'] = '#333333'
 plt.rcParams['axes.linewidth'] = 1.2
 
-def animate_quantum_simulation(csv_filename="simulation.csv", L=10.0):
+def animate_quantum_simulation(csv_filename="simulation.csv", L=10.0, x_min=0.0):
 
     data = pd.read_csv(csv_filename, header=None)
     
@@ -18,7 +18,7 @@ def animate_quantum_simulation(csv_filename="simulation.csv", L=10.0):
     psi_sq = data.iloc[:, 1:].values
     
     num_steps, N = psi_sq.shape
-    x_vals = np.linspace(0, L, N)
+    x_vals = np.linspace(x_min, L, N)
     
     fig, ax = plt.subplots(figsize=(10, 6), dpi=100)
     fig.patch.set_facecolor('#0b0b12')
@@ -28,15 +28,15 @@ def animate_quantum_simulation(csv_filename="simulation.csv", L=10.0):
     fill = ax.fill_between(x_vals, psi_sq[0], color='#7b2cbf', alpha=0.35)
 
     max_val = np.max(psi_sq) * 1.15
-    ax.set_xlim(0, L)
+    ax.set_xlim(x_min, L)
     ax.set_ylim(0, max_val)
 
     ax.set_xlabel('Position $x$', fontsize=13, labelpad=10, color='#e0e0e0')
     ax.set_ylabel('Probability density $|\Psi(x,t)|^2$', fontsize=13, labelpad=10, color='#e0e0e0')
     title_text = ax.set_title(f'Czas $t = {t_vals[0]:.3f}$', fontsize=14, pad=15, color='#ffffff', weight='bold')
 
-    ax.axvline(0, color='#00f0ff', linestyle='--', linewidth=2, alpha=0.7, label='Ściany studni')
-    ax.axvline(L, color='#00f0ff', linestyle='--', linewidth=2, alpha=0.7)
+    # ax.axvline(0, color='#00f0ff', linestyle='--', linewidth=2, alpha=0.7, label='Ściany studni')
+    # ax.axvline(L, color='#00f0ff', linestyle='--', linewidth=2, alpha=0.7)
 
     ax.grid(True, linestyle=':', alpha=0.2, color='#ffffff')
     ax.legend(loc='upper right', frameon=True, facecolor='#161625', edgecolor='#33334d', labelcolor='#ffffff')
@@ -61,7 +61,9 @@ if __name__ == "__main__":
     
     parser.add_argument("csv", nargs="?", default="simulation.csv", help="Path to results csv")
     parser.add_argument("L", nargs="?", type=float, default=10.0, help="Lenght of the infinite potential well (L)")
+    parser.add_argument("x_min", nargs="?", type=float, default=0.0, help="Left bound of the simulation")
+
     
     args = parser.parse_args()
     
-    animate_quantum_simulation(args.csv, L=args.L)
+    animate_quantum_simulation(args.csv, L=args.L, x_min=args.x_min)

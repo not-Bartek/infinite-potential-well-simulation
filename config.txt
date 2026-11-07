@@ -1,0 +1,11 @@
+1          # Simulation type: 0 = PotentialWell, 1 = Oscilator
+2.0e-6       # L window or well width
+500        # number of space intervals
+4.0e-7     # time step dt
+4.0e-26       # mass
+0.005       # tMax
+2.0e4        # Omega (oscilator)
+1            # Animation
+2          # Number of states N
+0 0.0 0.707  # State 1: n, phi, c
+2 0.0 0.707  # State 2: n, phi, c
